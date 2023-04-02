@@ -6,6 +6,7 @@ public class CheckArrowInButton : MonoBehaviour
 {
     public bool canBePressed;
     public KeyCode keyToPress;
+    public GameObject hitEffect, goodHitEffect, perfectHitEffect, missEffect;
     void Start()
     {
         
@@ -15,32 +16,35 @@ public class CheckArrowInButton : MonoBehaviour
     {
         if (Input.GetKeyDown(keyToPress))
         {
+            // if (!canBePressed) { // fix misses
+            //     Debug.Log("Miss");
+            //     Debug.Log(transform.position.y);
+            //     GameManager.instance.DecreaseMultiplier();
+            //     Instantiate(missEffect, transform.position, missEffect.transform.rotation);
+            // }
             if (canBePressed) { 
-                // gameObject.SetActive(false);
-                Destroy(gameObject);
-                // GameManager.instance.NoteHit();
+                // Destroy(gameObject);
+                gameObject.SetActive(false);
                 if (Mathf.Abs(transform.position.y) > 0.25)
                 {
-                    Debug.Log(transform.position.y);
-                    // Debug.Log("Normal");
-                    // GameManager.instance.NormalHit();
+                    // Debug.Log(transform.position.y);
+                    Debug.Log("Normal");
+                    GameManager.instance.NormalHit();
+                    Instantiate(hitEffect, transform.position, hitEffect.transform.rotation);
+
                 }
                 else if (Mathf.Abs(transform.position.y) > 0.05f)
                 {
-                    // Debug.Log("Good");
-                    // Debug.Log(transform.position.y);
+                    Debug.Log("Good");
                     GameManager.instance.GoodHit();
+                    Instantiate(goodHitEffect, transform.position, goodHitEffect.transform.rotation);
                 }
                 else
                 {
-                    // Debug.Log("Perfect");
+                    Debug.Log("Perfect");
                     GameManager.instance.PerfectHit();
+                    Instantiate(perfectHitEffect, transform.position, perfectHitEffect.transform.rotation);
                 }
-            }
-            else { // fix misses
-                Debug.Log("Miss");
-                Debug.Log(transform.position.y);
-                GameManager.instance.DecreaseMultiplier();
             }
         }
     }
@@ -59,6 +63,7 @@ public class CheckArrowInButton : MonoBehaviour
         {
             canBePressed = false;
             GameManager.instance.NoteMissed();
+            Instantiate(missEffect, transform.position, missEffect.transform.rotation);
         }
     }
 }

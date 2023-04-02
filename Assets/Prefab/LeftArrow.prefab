@@ -100,6 +100,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canBePressed: 0
   keyToPress: 276
+  hitEffect: {fileID: 1615468816105159167, guid: 1d2a40039b301a343becabcff998d281, type: 3}
+  goodHitEffect: {fileID: 8913825562242610966, guid: 74b0679043042f949bf8406b4a383a40, type: 3}
+  perfectHitEffect: {fileID: 4700518848879353072, guid: 63838230d8342f7429db6fde06c16dd4, type: 3}
+  missEffect: {fileID: 5738664872500476621, guid: 40e03323072acfe49b7a7d3ac7b20b46, type: 3}
 --- !u!58 &5164178366802456280
 CircleCollider2D:
   m_ObjectHideFlags: 0

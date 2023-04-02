@@ -7,6 +7,8 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public AudioSource song;
+    public AudioClip targetClip;
+
     public bool startPlaying;
     public ArrowPhysics beatScroller;
     public static GameManager instance;
@@ -26,8 +28,16 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreText;
     public TMP_Text multText;
 
+    public float totalNotes;
+    public float normalHits;
+    public float goodHits;
+    public float perfectHits;
+    public float missedHits;
+    
     void Start()
     {
+        // int bpm = UniBpmAnalyzer.AnalyzeBpm(targetClip);
+        // Debug.Log("BPM is " + bpm);
         instance = this;
         scoreText.text = "Score: 0";
         multText.text = "Multiplier: x1";
@@ -66,7 +76,7 @@ public class GameManager : MonoBehaviour
     }
     public void NoteHit()
     {
-        Debug.Log("Hit On Time");
+        // Debug.Log("Hit On Time");
         increseMultiplier();
         scoreText.text = "Score: " + currScore;
         multText.text = "Multiplier: x" + currMultiplier;

@@ -12,10 +12,15 @@ public class ArrowPhysics : MonoBehaviour
     public float spawnRate = 2f;
     float nextSpawn = 0f;
     int whatToSpawn;
+    
+    public GameManager gameManager;
 
     void Start()
     {
-        beatTempo = beatTempo / 60f;
+        int bpm = UniBpmAnalyzer.AnalyzeBpm(gameManager.targetClip);
+        Debug.Log("BPM is " + bpm);
+        beatTempo = bpm / 60f;
+        spawnRate = beatTempo / 8;
     }
 
     void Update()
@@ -32,7 +37,6 @@ public class ArrowPhysics : MonoBehaviour
         if (Time.time > nextSpawn) 
         {
             whatToSpawn = Random.Range(1, 5);
-            // Debug.Log(whatToSpawn);
             switch (whatToSpawn)
             {
                 case 1: 
