@@ -36,8 +36,6 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
-        // int bpm = UniBpmAnalyzer.AnalyzeBpm(targetClip);
-        // Debug.Log("BPM is " + bpm);
         instance = this;
         scoreText.text = "Score: 0";
         multText.text = "Multiplier: x1";
@@ -53,6 +51,13 @@ public class GameManager : MonoBehaviour
                 startPlaying = true;
                 beatScroller.hasStarted = true;
                 song.Play();
+            }
+        }
+        else
+        {
+            if (!song.isPlaying)
+            {
+                //End Game
             }
         }
     }

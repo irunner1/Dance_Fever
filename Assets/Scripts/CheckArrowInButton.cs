@@ -27,7 +27,6 @@ public class CheckArrowInButton : MonoBehaviour
                 gameObject.SetActive(false);
                 if (Mathf.Abs(transform.position.y) > 0.25)
                 {
-                    // Debug.Log(transform.position.y);
                     Debug.Log("Normal");
                     GameManager.instance.NormalHit();
                     Instantiate(hitEffect, transform.position, hitEffect.transform.rotation);
