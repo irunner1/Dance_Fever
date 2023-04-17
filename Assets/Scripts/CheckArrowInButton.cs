@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class CheckArrowInButton : MonoBehaviour
 {
+    //! Переменная говорит о том, что объект попал в поле картинки
     public bool canBePressed;
+    //! Код кнопки, которую нужно нажать
     public KeyCode keyToPress;
+    //! Объекты эффектов, спавнятся при хорошем\плохом\отличном\идеальном попадании
     public GameObject hitEffect, goodHitEffect, perfectHitEffect, missEffect;
     void Start()
     {
@@ -48,6 +51,9 @@ public class CheckArrowInButton : MonoBehaviour
         }
     }
 
+    ///
+    /// Функция проверки попадания в объект
+    ///
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Activator")
@@ -56,6 +62,9 @@ public class CheckArrowInButton : MonoBehaviour
         }
     }
 
+    ///
+    /// Функция проверки выхода из объекта
+    ///
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "Activator" && gameObject.activeSelf)

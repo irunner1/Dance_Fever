@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class ButtonController : MonoBehaviour
 {
+    //! Получает картинку со сцены
     private SpriteRenderer spriteRenderer;
+    //! Картинка для обычной кнопки
     public Sprite defaultImage;
+    //! Картинка для нажатой кнопки
     public Sprite pressedImage;
+    //! Какую кнопку нужно нажать для картинки
     public KeyCode keyToPress;
 
     void Start()

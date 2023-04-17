@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class ArrowPhysics : MonoBehaviour
 {
+    //! Скорость бита
     public float beatTempo;
+    //! Переменная хранит значение началась игра или нет
     public bool hasStarted;
-
-    // Рандомный спавн объектов
+    //! Объекта стрелок на сцене
     public GameObject leftArrow, rightArrow, upArrow, downArrow;
+    //! Задержка между спавном объектов
     public float spawnRate = 2f;
+    //! Время до спавка объектов
     float nextSpawn = 0f;
+    //! Переменная хранит номер объекта для спавна
     int whatToSpawn;
     
     public GameManager gameManager;
-
+    ///
+    ///  Функция начинает игру и вызывает функцию, переводящую бит в секунды
+    ///
     void Start()
     {
         int bpm = UniBpmAnalyzer.AnalyzeBpm(gameManager.targetClip);
@@ -22,7 +28,9 @@ public class ArrowPhysics : MonoBehaviour
         beatTempo = bpm / 60f;
         spawnRate = beatTempo / 8;
     }
-
+    ///
+    /// Функция обновления, при обновлении спавнятся стрелки, если игра началась
+    ///
     void Update()
     {
         if (hasStarted)
@@ -31,7 +39,9 @@ public class ArrowPhysics : MonoBehaviour
             transform.position -= new Vector3(0f, beatTempo * Time.deltaTime, 0f);
         }
     }
-
+    ///
+    /// Функция спавна объектов в разных точках рандомно
+    ///
     private void SpawnArrows()
     {
         if (Time.time > nextSpawn) 
