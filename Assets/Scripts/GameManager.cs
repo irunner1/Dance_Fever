@@ -6,7 +6,10 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    //! Объект аниматора, отвечает за начало и конец проигрывания анимации
     [SerializeField] private Animator dancerAnimationController;
+    //! Объект текстого поля, которое выводится при начале игры
+    [SerializeField] private TMP_Text startGameHint;
     //! Песня, которая играет на фоне
     public AudioSource song;
     //! Клип пеесни, которая играет на фоне
@@ -60,6 +63,7 @@ public class GameManager : MonoBehaviour
         scoreText.text = "Score: 0";
         multText.text = "Multiplier: x1";
         currMultiplier = 1;
+        startGameHint.gameObject.SetActive(true);
     }
 
     void Update()
@@ -69,6 +73,7 @@ public class GameManager : MonoBehaviour
             if (Input.anyKeyDown)
             {
                 startPlaying = true;
+                startGameHint.gameObject.SetActive(false);
                 beatScroller.hasStarted = true;
                 dancerAnimationController.SetBool("startAnimation", true);
                 song.Play();
