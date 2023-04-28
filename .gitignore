@@ -6,6 +6,8 @@
 [Ss]treamingAssets/
 [Ss]treamingAssets.meta
 UnityGenerated/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
   
 # ----[ Visual Studio / MonoDevelop generated ]------- #
   
@@ -19,6 +21,7 @@ ExportedObj/
 *.user
 *.unityproj
 *.booproj
+.vscode
 [Uu]nityVS/
 [Uu]nityVS.meta
   

@@ -11,9 +11,9 @@ public class EffectObject : MonoBehaviour
     {
         
     }
-    /*
-     * @brief Метод удаления объекта с течением времени
-     */
+    ///
+    /// @brief Метод удаления объекта с течением времени
+    ///
     void Update()
     {
         Destroy(gameObject, lifetime);

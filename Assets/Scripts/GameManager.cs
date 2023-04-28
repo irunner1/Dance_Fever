@@ -6,6 +6,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private Animator dancerAnimationController;
     //! Песня, которая играет на фоне
     public AudioSource song;
     //! Клип пеесни, которая играет на фоне
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour
             {
                 startPlaying = true;
                 beatScroller.hasStarted = true;
+                dancerAnimationController.SetBool("startAnimation", true);
                 song.Play();
             }
         }
@@ -76,6 +78,7 @@ public class GameManager : MonoBehaviour
         {
             if (!song.isPlaying)
             {
+                dancerAnimationController.SetBool("startAnimation", false);
                 startPlaying = false;
                 //End Game
             }
