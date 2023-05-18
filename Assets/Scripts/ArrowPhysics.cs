@@ -28,7 +28,7 @@ public class ArrowPhysics : MonoBehaviour
         int bpm = UniBpmAnalyzer.AnalyzeBpm(gameManager.targetClip);
         Debug.Log("BPM is " + bpm);
         beatTempo = bpm / 60f;
-        spawnRate = beatTempo / 5f;
+        spawnRate = beatTempo / 9f;
     }
     ///
     /// Функция обновления, при обновлении спавнятся стрелки, если игра началась

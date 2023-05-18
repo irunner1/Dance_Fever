@@ -14,6 +14,9 @@ public class UIController : MonoBehaviour {
     public void StartScene() {
         SceneManager.LoadScene(scenesList[0]);
     }
+    public void ExitLevels() {
+        SceneManager.LoadScene("Menu");
+    }
     ///
     /// @brief Метод закрытия настроек
     ///
