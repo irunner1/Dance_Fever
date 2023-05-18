@@ -7,7 +7,9 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     //! Объект аниматора, отвечает за начало и конец проигрывания анимации
-    [SerializeField] private Animator dancerAnimationController;
+    [SerializeField] private Animator dancerAnimationControllerProtagonist;
+    [SerializeField] private Animator dancerAnimationControllerAntagonist;
+
     //! Объект текстого поля, которое выводится при начале игры
     [SerializeField] private TMP_Text startGameHint;
     //! Песня, которая играет на фоне
@@ -46,16 +48,22 @@ public class GameManager : MonoBehaviour
     //! Элемент текста для множителя TextMeshPro
     public TMP_Text multText;
 
-    // //! 
-    // public float totalNotes;
-    // //!
-    // public float normalHits;
-    // //!
-    // public float goodHits;
-    // //!
-    // public float perfectHits;
-    // //!
-    // public float missedHits;
+    //! Общее количество стрелок
+    public float totalNotes;
+    // Получить компонент из arrowphysics
+    //! Количество нормальных попаданий
+    public float normalHits;
+    //! Количество хороших попаданий
+    public float goodHits;
+    //! Количество идеальных попаданий
+    public float perfectHits;
+    //! Количество пропущенных стрелок
+    public float missedHits;
+
+    //! Объект экрана результатов
+    public GameObject resultsScreen;
+    //! Текстовые поля на экране результатов
+    public TMP_Text percentHitText, normalsText, goodsText, perfectsText, missedText, rankText, finalScoreText;
     
     void Start()
     {
@@ -75,19 +83,52 @@ public class GameManager : MonoBehaviour
                 startPlaying = true;
                 startGameHint.gameObject.SetActive(false);
                 beatScroller.hasStarted = true;
-                dancerAnimationController.SetBool("startAnimation", true);
+                dancerAnimationControllerProtagonist.SetBool("startAnimation", true);
+                dancerAnimationControllerAntagonist.SetBool("startAnimation", true);
                 song.Play();
             }
         }
         else
         {
-            if (!song.isPlaying)
+            if (!song.isPlaying && !resultsScreen.activeInHierarchy)
             {
-                dancerAnimationController.SetBool("startAnimation", false);
                 startPlaying = false;
-                //End Game
+                dancerAnimationControllerProtagonist.SetBool("startAnimation", false);
+                dancerAnimationControllerAntagonist.SetBool("startAnimation", false);
+                beatScroller.hasStarted = false;
+                
+                resultsScreen.SetActive(true);
+                normalsText.text = "" + normalHits;
+                goodsText.text = "" + goodHits;
+                perfectsText.text = "" + perfectHits;
+                missedText.text = "" + missedHits;
+
+                float totalHits = normalHits + goodHits + perfectHits;
+                float percentHit = (totalHits / totalNotes) * 100f;
+                percentHitText.text = percentHit.ToString("F1") + "%";
+
+                string rankVal = "F";
+                if (percentHit > 40) {
+                    rankVal = "D";
+                    if (percentHit > 55) {
+                        rankVal = "C";
+                        if (percentHit > 70) {
+                            rankVal = "B";
+                            if (percentHit > 85) {
+                                rankVal = "A";
+                                if (percentHit > 55) {
+                                    rankVal = "S";
+                                }
+                            }
+                        }
+                    }
+                }
+
+                rankText.text = "" + rankVal;
+                finalScoreText.text = currScore.ToString();
             }
         }
+        totalNotes = goodHits + normalHits + perfectHits + missedHits;
     }
     ///
     /// Функция увеличивает множитель
@@ -104,6 +145,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
     ///
     /// Функция уменьшает множитель
     ///
@@ -113,6 +155,7 @@ public class GameManager : MonoBehaviour
         currMultiplier = 1;
         multText.text = "Multiplier: x" + currMultiplier;
     }
+
     ///
     /// Функция попадания в удар
     ///
@@ -123,6 +166,7 @@ public class GameManager : MonoBehaviour
         scoreText.text = "Score: " + currScore;
         multText.text = "Multiplier: x" + currMultiplier;
     }
+
     ///
     /// Функция увеличивает множитель
     ///
@@ -132,7 +176,9 @@ public class GameManager : MonoBehaviour
         currMultiplier = 1;
         multiplierTracker = 0;
         multText.text = "Multiplier: x" + currMultiplier;
+        missedHits++;
     }
+
     ///
     /// Функция обычного попадания
     ///
@@ -140,16 +186,20 @@ public class GameManager : MonoBehaviour
     {
         currScore += scorePerNote * currMultiplier;
         NoteHit();
+        normalHits++;
     }
     ///
     /// Функция хорошего попадания
     /// добавляет множитель к очкам и дает больше очков
     ///
+
     public void GoodHit()
     {
         currScore += scorePerGoodNote * currMultiplier;
         NoteHit();
+        goodHits++;
     }
+
     ///
     /// Функция идеального попадания
     /// добавляет множитель к очкам и дает максимальное колчичество очков
@@ -158,5 +208,6 @@ public class GameManager : MonoBehaviour
     {
         currScore += scorePerPerfectNote * currMultiplier;
         NoteHit();
+        perfectHits++;
     }
 }

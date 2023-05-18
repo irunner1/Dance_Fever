@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ArrowPhysics : MonoBehaviour
 {
+    //! Счетчик стрелок
+    public int count_arrows = 0;
     //! Скорость бита
     public float beatTempo;
     //! Переменная хранит значение началась игра или нет
@@ -26,18 +28,19 @@ public class ArrowPhysics : MonoBehaviour
         int bpm = UniBpmAnalyzer.AnalyzeBpm(gameManager.targetClip);
         Debug.Log("BPM is " + bpm);
         beatTempo = bpm / 60f;
-        spawnRate = beatTempo / 10f;
+        spawnRate = beatTempo / 5f;
     }
     ///
     /// Функция обновления, при обновлении спавнятся стрелки, если игра началась
     ///
-    void Update()
-    {
-        if (hasStarted)
-        {
+    void Update() {
+        if (hasStarted) {
             SpawnArrows();
             transform.position -= new Vector3(0f, beatTempo * Time.deltaTime, 0f);
         }
+        // else {
+        //     Debug.Log("stop");
+        // }
     }
     ///
     /// Функция спавна объектов в разных точках рандомно
@@ -65,6 +68,7 @@ public class ArrowPhysics : MonoBehaviour
                     break;
             }
             nextSpawn = Time.time + spawnRate;
+            count_arrows++;
         }
     }
 }
