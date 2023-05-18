@@ -60,8 +60,12 @@ public class GameManager : MonoBehaviour
     //! Количество пропущенных стрелок
     public float missedHits;
 
+    //! Переменная отвечает за паузу в игре
+    public bool pause;
     //! Объект экрана результатов
     public GameObject resultsScreen;
+    //! Объект экрана настроек
+    public GameObject settingsScreen;
     //! Текстовые поля на экране результатов
     public TMP_Text percentHitText, normalsText, goodsText, perfectsText, missedText, rankText, finalScoreText;
     
@@ -90,7 +94,19 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (!song.isPlaying && !resultsScreen.activeInHierarchy)
+            if (song.isPlaying && settingsScreen.activeInHierarchy) {
+                song.Pause();
+                pause = true;
+                beatScroller.hasStarted = false;
+                Debug.Log("tick");
+            }
+            if (pause && !settingsScreen.activeInHierarchy) {
+                song.Play();
+                pause = false;
+                beatScroller.hasStarted = true;
+                Debug.Log("tack");
+            }
+            if (!song.isPlaying && !resultsScreen.activeInHierarchy && pause == false)
             {
                 startPlaying = false;
                 dancerAnimationControllerProtagonist.SetBool("startAnimation", false);
