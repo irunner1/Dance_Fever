@@ -14,6 +14,12 @@ public class UIController : MonoBehaviour {
     public void StartScene() {
         SceneManager.LoadScene(scenesList[0]);
     }
+    ///
+    /// @brief Метод открытия сцены выбора уровней
+    ///
+    public void StartSceneBoss() {
+        SceneManager.LoadScene("LevelBoss");
+    }
     public void ExitLevels() {
         SceneManager.LoadScene("Menu");
     }
